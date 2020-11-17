@@ -23,7 +23,7 @@ public class DefaultController {
 	@RequestMapping("/send")
 	public String sendMessage(@RequestParam String id, @RequestParam String data) {
 		WebSocketSender sender = senderMap.get(id);
-		defaultService.response(id);
+		defaultService.respond(id);
 		if (sender != null) {
 			sender.sendData(data);
 			return String.format("Message '%s' sent to connection: %s.", data, id);

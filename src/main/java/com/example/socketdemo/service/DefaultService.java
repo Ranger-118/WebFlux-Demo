@@ -23,7 +23,7 @@ public class DefaultService {
     }
 
     @Async
-    public void response(String id) {
+    public void respond(String id) {
         WebSocketSender sender = senderMap.get(id);
         if (ObjectUtils.isEmpty(onList.get(id))) {
             onList.put(id, sender);
