@@ -25,9 +25,12 @@ public class DefaultService {
     @Async
     public void respond(String id) {
         WebSocketSender sender = senderMap.get(id);
+        sender.getSink().onCancel(() -> {
+            onList.clear();
+        });
         if (ObjectUtils.isEmpty(onList.get(id))) {
             onList.put(id, sender);
-            while (true) {
+            while (!ObjectUtils.isEmpty(onList.get(id))) {
                 try {
                     Thread.sleep(3000);
                 } catch (InterruptedException e) {
@@ -37,5 +40,9 @@ public class DefaultService {
                 sender.sendData(getDateTimeString());
             }
         }
+    }
+
+    public ConcurrentHashMap<String, WebSocketSender> getOnList() {
+        return onList;
     }
 }

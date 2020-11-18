@@ -19,4 +19,12 @@ public class WebSocketSender {
     public void sendData(String data) {
         sink.next(session.textMessage(data));
     }
+
+    public WebSocketSession getSession() {
+        return session;
+    }
+
+    public FluxSink<WebSocketMessage> getSink() {
+        return sink;
+    }
 }
